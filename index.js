@@ -17,6 +17,7 @@ const connect = async () => {
   }
 };
 
+app.use(express.json());
 const api = process.env.API;
 app.use(`${api}/auth`, authRouter);
 app.use(`${api}/users`, usersRouter);
