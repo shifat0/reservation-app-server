@@ -23,6 +23,15 @@ app.use(`${api}/auth`, authRouter);
 app.use(`${api}/users`, usersRouter);
 app.use(`${api}/hotels`, hotelsRouter);
 app.use(`${api}/rooms`, roomsRouter);
+// Error Handler
+app.use((err, req, res, next) => {
+  return res.status(err.status || 500).json({
+    success: false,
+    status: err.status,
+    message: err.message || "Something went wrong",
+    stack: err.stack,
+  });
+});
 
 mongoose.connection.on("disconnected", () =>
   console.log("mongoDB disconnected")
