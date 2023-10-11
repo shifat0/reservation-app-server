@@ -6,6 +6,7 @@ import usersRouter from "./routes/users.js";
 import hotelsRouter from "./routes/hotels.js";
 import roomsRouter from "./routes/rooms.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ const connect = async () => {
 
 //Middlewears
 app.use(express.json());
+app.use(cors());
 const api = process.env.API;
 app.use(cookieParser());
 
