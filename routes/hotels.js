@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  countByCity,
   createHotel,
   deleteHotel,
   getHotel,
@@ -17,7 +18,11 @@ router.post("/", verifyAdmin, createHotel);
 router.get("/", getHotel);
 
 //GET BY ID
-router.get("/:id", getHotelById);
+router.get("/single/:id", getHotelById);
+
+// GET COUNT
+router.get("/count-by-city", countByCity);
+router.get("/count-by-type", getHotel);
 
 //UPDATE
 router.put("/:id", verifyAdmin, updateHotel);

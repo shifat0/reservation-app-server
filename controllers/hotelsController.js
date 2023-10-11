@@ -28,6 +28,18 @@ export const getHotelById = async (req, res, next) => {
   }
 };
 
+export const countByCity = async (req, res, next) => {
+  const cities = req.query.cities.split(",");
+  try {
+    const countCity = await Promise.all(
+      cities.map((city) => Hotel.countDocuments({ city: city }))
+    );
+    res.status(200).json(countCity);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const updateHotel = async (req, res, next) => {
   try {
     const updatedHotel = await Hotel.findByIdAndUpdate(
