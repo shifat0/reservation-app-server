@@ -12,12 +12,12 @@ export const createHotel = async (req, res, next) => {
 
 export const getHotel = async (req, res, next) => {
   // destructuring the queries
-  const { min, max, ...rest } = req.query;
+  const { min, max, limit, ...rest } = req.query;
   try {
     const hotel = await Hotel.find({
-      featured: rest.featured,
+      ...rest,
       cheapestPrice: { $gt: min | 1, $lt: max || 999 },
-    }).limit(req.query.limit);
+    }).limit(limit);
     res.status(200).json(hotel);
   } catch (err) {
     next(err);
