@@ -1,12 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import authRouter from "./routes/auth.js";
-import usersRouter from "./routes/users.js";
-import hotelsRouter from "./routes/hotels.js";
-import roomsRouter from "./routes/rooms.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import router from "./routes/index.js";
 
 const app = express();
 dotenv.config();
@@ -22,13 +19,11 @@ const connect = async () => {
 //Middlewears
 app.use(express.json());
 app.use(cors());
-const api = process.env.API;
 app.use(cookieParser());
 
-app.use(`${api}/auth`, authRouter);
-app.use(`${api}/users`, usersRouter);
-app.use(`${api}/hotels`, hotelsRouter);
-app.use(`${api}/rooms`, roomsRouter);
+const api = process.env.API;
+app.use(`${api}`, router);
+
 // Error Handler
 app.use((err, req, res, next) => {
   return res.status(err.status || 500).json({
